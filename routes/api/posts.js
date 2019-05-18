@@ -21,6 +21,7 @@ router.get("/", (req, res) => {
 	Post.find()
 		.sort({ date: -1 })
 		.then(post => res.json(post))
+		// Return empty list
 		.catch(err => res.status(404).json({ nopost: "No posts found!" }));
 });
 
