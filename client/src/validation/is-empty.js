@@ -1,5 +1,5 @@
 // This is done to handle null, undefined etc bcos validator module only validates strings
-const isEmpty=(value) =>{
+function isEmpty(value) {
 	return (
 		value === undefined ||
 		value === null ||
@@ -8,4 +8,4 @@ const isEmpty=(value) =>{
 	);
 }
 
-module.exports = isEmpty;
+export default isEmpty;

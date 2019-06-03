@@ -15,7 +15,7 @@ module.exports = function validateRegInput(data) {
 	data.confirmPassword = !isEmpty(data.confirmPassword)
 		? data.confirmPassword
 		: "";
-	if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
+	if (!Validator.isLength(data.name, { min: 2, max: 50 })) {
 		errors.name = "Name must be between 2 and 50 characters long!";
 	}
 	if (Validator.isEmpty(data.name)) {
@@ -44,6 +44,7 @@ module.exports = function validateRegInput(data) {
 	// Else the error is populated and returned
 	return {
 		errors: errors,
+		// isValid checks if errors is empty,if so,it means user input is valid
 		isValid: isEmpty(errors)
 	};
 };

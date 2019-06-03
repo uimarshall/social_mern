@@ -53,6 +53,7 @@ router.post(
 			return res.status(400).json(errors);
 		}
 		const newPost = new Post({
+			// This will be pulled from the Redux state as far as user is logged in
 			text: req.body.text,
 			name: req.body.name,
 			avatar: req.body.avatar,
