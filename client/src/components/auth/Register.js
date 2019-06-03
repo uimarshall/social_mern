@@ -16,11 +16,11 @@ class Register extends Component {
 		errors: {}
 	};
 
-	// componentDidMount() {
-	// 	if (this.props.auth.isAuthenticated) {
-	// 		this.props.history.push("/dashboard");
-	// 	}
-	// }
+	componentDidMount() {
+		if (this.props.auth.isAuthenticated) {
+			this.props.history.push("/dashboard");
+		}
+	}
 	// This runs when comp receives new property(props)
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.errors) {

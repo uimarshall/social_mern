@@ -11,21 +11,21 @@ class Login extends Component {
 		errors: {}
 	};
 
-	// componentDidMount() {
-	// 	if (this.props.auth.isAuthenticated) {
-	// 		this.props.history.push('/dashboard');
-	// 	}
-	// }
+	componentDidMount() {
+		if (this.props.auth.isAuthenticated) {
+			this.props.history.push("/dashboard");
+		}
+	}
 
-	// componentWillReceiveProps(nextProps) {
-	// 	if (nextProps.auth.isAuthenticated) {
-	// 		this.props.history.push('/dashboard');
-	// 	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.auth.isAuthenticated) {
+			this.props.history.push("/dashboard");
+		}
 
-	// 	if (nextProps.errors) {
-	// 		this.setState({ errors: nextProps.errors });
-	// 	}
-	// }
+		if (nextProps.errors) {
+			this.setState({ errors: nextProps.errors });
+		}
+	}
 
 	handleSubmit = e => {
 		e.preventDefault();
