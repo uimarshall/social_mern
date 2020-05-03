@@ -7,10 +7,10 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 class Navbar extends Component {
-	handleLogoutClick(e) {
+	handleLogoutClick = (e) => {
 		e.preventDefault();
 		this.props.logoutUser();
-	}
+	};
 	render() {
 		const { isAuthenticated, user } = this.props.auth;
 
