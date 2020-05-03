@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-// import TextFieldGroup from '../common/TextFieldGroup';
+import TextFieldGroup from "../commons/TextFieldGroup";
 
 class Login extends Component {
 	state = {
 		email: "",
 		password: "",
-		errors: {}
+		errors: {},
 	};
 
 	componentDidMount() {
@@ -27,18 +27,18 @@ class Login extends Component {
 		}
 	}
 
-	handleSubmit = e => {
+	handleSubmit = (e) => {
 		e.preventDefault();
 
 		const userData = {
 			email: this.state.email,
-			password: this.state.password
+			password: this.state.password,
 		};
 
 		this.props.loginUser(userData);
 	};
 
-	handleChange = e => {
+	handleChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
@@ -53,7 +53,7 @@ class Login extends Component {
 							<h1 className="display-4 text-center">Log In</h1>
 							<p className="lead text-center">Sign in to your DevHub account</p>
 							<form onSubmit={this.handleSubmit}>
-								{/* <TextFieldGroup
+								<TextFieldGroup
 									placeholder="Email Address"
 									name="email"
 									type="email"
@@ -69,7 +69,7 @@ class Login extends Component {
 									value={this.state.password}
 									onChange={this.handleChange}
 									error={errors.password}
-								/> */}
+								/>
 								<input type="submit" className="btn btn-info btn-block mt-4" />
 							</form>
 						</div>
@@ -83,15 +83,12 @@ class Login extends Component {
 Login.propTypes = {
 	loginUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
-	errors: PropTypes.object.isRequired
+	errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
 	auth: state.auth,
-	errors: state.errors
+	errors: state.errors,
 });
 
-export default connect(
-	mapStateToProps,
-	{ loginUser }
-)(Login);
+export default connect(mapStateToProps, { loginUser })(Login);
