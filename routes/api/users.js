@@ -20,7 +20,7 @@ router.get("/test", (req, res) => {
 	res.json({ msg: "users rocks" });
 });
 
-// User Registration Route
+// User Registration Route - /api/users/register
 // Check if the email coming in matches what is in the DB
 router.post("/register", (req, res) => {
 	// Validate everything coming the request body
@@ -29,7 +29,7 @@ router.post("/register", (req, res) => {
 	if (!isValid) {
 		return res.status(400).json(errors);
 	}
-	User.findOne({ email: req.body.email }).then(user => {
+	User.findOne({ email: req.body.email }).then((user) => {
 		if (user) {
 			errors.email = "Email already exist";
 			return res.status(400).json(errors);
@@ -37,14 +37,14 @@ router.post("/register", (req, res) => {
 			const avatar = gravatar.url(req.body.email, {
 				s: "200", //Size
 				r: "pg", //Rating
-				d: "mm" //Default
+				d: "mm", //Default
 			});
 			const newUser = new User({
 				//create new user
 				name: req.body.name,
 				email: req.body.email,
 				avatar: avatar,
-				password: req.body.password
+				password: req.body.password,
 			});
 
 			// Hash Password
@@ -54,8 +54,8 @@ router.post("/register", (req, res) => {
 					newUser.password = hash;
 					newUser
 						.save()
-						.then(userCreated => res.json(userCreated))
-						.catch(err => console.log(err));
+						.then((userCreated) => res.json(userCreated))
+						.catch((err) => console.log(err));
 				});
 			});
 		}
@@ -75,7 +75,7 @@ router.post("/login", (req, res) => {
 	// Find User by Email entered
 	// The user found/returned using d email is the user that was created thru register route
 	// So all the info the user input during the Regd will be returned and stored in the variable 'userFound'
-	User.findOne({ email: email }).then(userFound => {
+	User.findOne({ email: email }).then((userFound) => {
 		// Check for user
 		if (!userFound) {
 			errors.email = "User not found!";
@@ -83,7 +83,7 @@ router.post("/login", (req, res) => {
 		}
 
 		// Check for Password Entered
-		bcrypt.compare(password, userFound.password).then(isMatch => {
+		bcrypt.compare(password, userFound.password).then((isMatch) => {
 			// If a user matches send along a token
 			if (isMatch) {
 				// If password is true, Generate Token here using 'jwt.sign'
@@ -93,7 +93,7 @@ router.post("/login", (req, res) => {
 				const payload = {
 					id: userFound._id,
 					name: userFound.name,
-					avatar: userFound.avatar
+					avatar: userFound.avatar,
 				};
 				// Sign Token
 				// 'jwt.sign' takes in 3 params: payload,secret key & expiration time
@@ -123,7 +123,7 @@ router.get(
 		res.json({
 			id: req.user._id,
 			name: req.user.name,
-			email: req.user.email
+			email: req.user.email,
 		});
 	}
 );

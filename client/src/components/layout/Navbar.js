@@ -55,8 +55,7 @@ class Navbar extends Component {
 							className="navbar-toggler"
 							type="button"
 							data-toggle="collapse"
-							data-target="#mobile-nav"
-						>
+							data-target="#mobile-nav">
 							<span className="navbar-toggler-icon" />
 						</button>
 
@@ -65,7 +64,7 @@ class Navbar extends Component {
 								<li className="nav-item">
 									<Link className="nav-link" to="/profiles">
 										{" "}
-										Developers
+										Developers Profile
 									</Link>
 								</li>
 							</ul>
@@ -80,14 +79,11 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired
+	auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-	auth: state.auth
+const mapStateToProps = (state) => ({
+	auth: state.auth,
 });
 
-export default connect(
-	mapStateToProps,
-	{ logoutUser }
-)(Navbar);
+export default connect(mapStateToProps, { logoutUser })(Navbar);

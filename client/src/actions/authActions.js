@@ -5,26 +5,26 @@ import jwt_decode from "jwt-decode";
 
 // Register User
 // 'userData' is coming from the 'Register.js' component when a user submit form
-export const registerUser = (userData, history) => dispatch => {
+export const registerUser = (userData, history) => (dispatch) => {
 	// Hit the backend and wait for data
 	axios
 		.post("/api/users/register", userData)
 		// redirect to login
-		.then(res => history.push("/login"))
-		.catch(err =>
-			// dispatch is made available by thunk
+		.then((res) => history.push("/login"))
+		.catch((err) =>
+			// dispatch is made available by thunk/use dispatch instead of return statement
 			dispatch({
 				type: GET_ERRORS,
-				payload: err.response.data
+				payload: err.response.data,
 			})
 		);
 };
 
 // Login - Get User Token
-export const loginUser = userData => dispatch => {
+export const loginUser = (userData) => (dispatch) => {
 	axios
 		.post("api/users/login", userData)
-		.then(res => {
+		.then((res) => {
 			// Save to localStorage
 			const { token } = res.data;
 			// Set token to localStorage
@@ -36,25 +36,25 @@ export const loginUser = userData => dispatch => {
 			// Set current user
 			dispatch(setCurrentUser(decoded));
 		})
-		.catch(err =>
+		.catch((err) =>
 			dispatch({
 				type: GET_ERRORS,
 				// send along the user & token information
-				payload: err.response.data
+				payload: err.response.data,
 			})
 		);
 };
 
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = (decoded) => {
 	return {
 		type: SET_CURRENT_USER,
-		payload: decoded
+		payload: decoded,
 	};
 };
 
 // Log user out
-export const logoutUser = () => dispatch => {
+export const logoutUser = () => (dispatch) => {
 	// Remove token from localStorage
 	localStorage.removeItem("jwtToken");
 	// Remove auth header for future requests
