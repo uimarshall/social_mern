@@ -5,6 +5,7 @@ import TextFieldGroup from "../commons/TextFieldGroup";
 import TextAreaGroup from "../commons/TextAreaGroup";
 import InputGroup from "../commons/InputGroup";
 import SelectListGroup from "../commons/SelectListGroup";
+import { createProfile } from "../../actions/profileActions";
 
 class CreateProfile extends Component {
 	state = {
@@ -23,6 +24,22 @@ class CreateProfile extends Component {
 		instagram: "",
 		errors: {},
 	};
+	// Get state from props before rendering it
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (nextProps.errors !== prevState.errors) {
+			//Check if comp received update by receiving new props
+			return { errors: nextProps.errors }; //If any props is received, then set the state equal to that prop
+		}
+
+		// If the component is not updated by receiving newProps, return null
+		return null;
+	}
+	// componentDidUpdate(props, prevState) {
+	// 	if (props.errors) {
+	// 		//Perform some operation here
+	// 		this.setState({ errors: props.errors });
+	// 	}
+	// }
 
 	handleChange = (e) => {
 		this.setState({
@@ -32,7 +49,25 @@ class CreateProfile extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log("submit");
+		const profileData = {
+			handle: this.state.handle,
+			company: this.state.company,
+			website: this.state.website,
+			location: this.state.location,
+			status: this.state.status,
+			skills: this.state.skills,
+			githubusername: this.state.githubusername,
+			bio: this.state.bio,
+			twitter: this.state.twitter,
+			facebook: this.state.facebook,
+			linkedin: this.state.linkedin,
+			youtube: this.state.youtube,
+			instagram: this.state.instagram,
+		};
+
+		// Whenever we call a redux action(createProfile()), its always attached to the props
+		this.props.createProfile(profileData, this.props.history);
+		// console.log("submit");
 	};
 
 	render() {
@@ -177,6 +212,7 @@ class CreateProfile extends Component {
 								/>
 								<div className="mb-3">
 									<button
+										type="button"
 										onClick={() => {
 											this.setState((prevState) => ({
 												displaySocialMediaHandles: !prevState.displaySocialMediaHandles,
@@ -203,7 +239,7 @@ class CreateProfile extends Component {
 }
 
 CreateProfile.propTypes = {
-	registerUser: PropTypes.func.isRequired,
+	createProfile: PropTypes.func.isRequired,
 	profile: PropTypes.object.isRequired,
 	errors: PropTypes.object.isRequired,
 };
@@ -213,4 +249,4 @@ const mapStateToProps = (state) => ({
 	errors: state.errors,
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(mapStateToProps, { createProfile })(CreateProfile);
