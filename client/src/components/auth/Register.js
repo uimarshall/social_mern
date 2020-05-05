@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 // import axios from "axios";
-import classnames from "classnames";
+
 import { registerUser } from "../../actions/authActions";
 import TextFieldGroup from "../commons/TextFieldGroup";
 
